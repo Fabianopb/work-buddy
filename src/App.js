@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 
 // import Requests from './modules/requests';
@@ -54,9 +53,7 @@ class App extends Component {
   render() {
 
     return (
-      <Router>
-        <Route exact path="/" component={ () => <div>THIS IS A ROUTER TEST</div> } />
-      </Router>
+      <div>THIS IS A TEST</div>
       // <MuiThemeProvider>
       //   { this.state.isLoading ? (
       //     <CircularProgress />
