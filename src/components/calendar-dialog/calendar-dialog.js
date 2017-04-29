@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Requests from '../../modules/requests';
 
 import Dialog from 'material-ui/Dialog';
-// import FlatButton from 'material-ui/FlatButton';
+import FlatButton from 'material-ui/FlatButton';
 // import SelectField from 'material-ui/SelectField';
 // import MenuItem from 'material-ui/MenuItem';
 
@@ -46,6 +46,11 @@ class CalendarDialog extends Component {
   _handleParticipantsChange = (event, index, participants) => this.setState({ participants });
 
   _sendInvitation = () => {
+    if (this.state.participants.length === 0) {
+      console.log('List of participants is empty!');
+      this.props.closeDialogCallback();
+      return null;
+    }
     Requests.postInvitation(this.state.activeStartTime, this.state.activeEndTime, this.state.participants).then((response) => {
       console.log('invitation sent!', response);
       this.setState({ participants: [] });
@@ -59,18 +64,19 @@ class CalendarDialog extends Component {
 
     const { participants } = this.state;
 
-    // const actions = [
-    //   <FlatButton
-    //     label="Send invitation"
-    //     primary={ true }
-    //     keyboardFocused={ false }
-    //     onTouchTap={ this._sendInvitation.bind(this) }
-    //   />,
-    // ];
+    const actions = [
+      <FlatButton
+        label="Send invitation"
+        primary={ true }
+        keyboardFocused={ false }
+        onTouchTap={ this._sendInvitation.bind(this) }
+      />,
+    ];
 
     return (
       <Dialog
         title="Schedule a meeting"
+        actions={ actions }
         modal={ false }
         open={ this.state.isDialogOpen }
         onRequestClose={ this.props.closeDialogCallback }
