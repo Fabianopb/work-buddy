@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-// import moment from 'moment';
+import moment from 'moment';
 
 import {List, ListItem} from 'material-ui/List';
 
@@ -43,11 +43,11 @@ class CalendarBody extends Component {
   }
 
   _isTimeScheduled(startTime) {
-    // for (let event of this.props.events) {
-    //   if (moment(event.starts_at).isSame(moment(startTime))) {
-    //     return 'scheduled';
-    //   }
-    // }
+    for (let event of this.props.events) {
+      if (moment(event.starts_at).isSame(moment(startTime))) {
+        return 'scheduled';
+      }
+    }
     return '';
   }
 
