@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 import {List, ListItem} from 'material-ui/List';
 
@@ -29,8 +29,8 @@ class CalendarBody extends Component {
 
   _renderCalendarTimes(date, times) {
     return times.map((time) => {
-      const startTime = moment(date).startOf('d').add(time, 'h').toISOString();
-      const endTime = moment(startTime).add(1, 'h').toISOString();
+      const startTime = moment(date).startOf('d').add(time, 'h').valueOf();
+      const endTime = moment(startTime).add(1, 'h').valueOf();
       return (
         <ListItem
           className={ this._isTimeScheduled(startTime) }

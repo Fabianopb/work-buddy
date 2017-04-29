@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
 import Requests from './modules/requests';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -35,6 +34,10 @@ class App extends Component {
     Requests.getUsersAndEvents().then((response) => {
       this.users = response[0].data.users;
       this.events = response[1].data.events;
+      for (let event of this.events) {
+        event.starts_at *= 1000;
+        event.ends_at *= 1000;
+      }
       this.setState({ isLoading: false });
     }).catch((error) => {
       console.log(error);
