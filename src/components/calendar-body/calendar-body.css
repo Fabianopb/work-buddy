@@ -1,0 +1,8 @@
+.calendar-box {
+  display: flex;
+}
+
+.weekday-table {
+  flex: 1;
+  border: 1px dotted lightgrey;
+}

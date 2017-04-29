@@ -1,0 +1,8 @@
+.calendar-title {
+  display: flex;
+}
+
+.weekday-title {
+  flex: 1;
+  text-align: center;
+}

@@ -1,17 +1,3 @@
 .debug {
   border: 2px solid red;
 }
-
-.calendar-box, .calendar-title {
-  display: flex;
-}
-
-.weekday-title {
-  flex: 1;
-  text-align: center;
-}
-
-.weekday-table {
-  flex: 1;
-  border: 1px dotted lightgrey;
-}
