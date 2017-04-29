@@ -32,7 +32,6 @@ class CalendarBody extends Component {
       const startTime = moment(date).startOf('d').add(time, 'h').valueOf();
       const endTime = moment(startTime).add(1, 'h').valueOf();
       const eventName = this._isTimeScheduled(startTime);
-      console.log(eventName);
       return (
         eventName ? (
           <ListItem

@@ -18,7 +18,6 @@ class CalendarDialog extends Component {
       activeEndTime: ''
     };
     this.participants = [];
-    this.eventName = '';
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,7 +50,7 @@ class CalendarDialog extends Component {
       this.props.closeDialogCallback();
       return null;
     }
-    Requests.postInvitation(this.state.activeStartTime, this.state.activeEndTime, this.participants, this.eventName.value)
+    Requests.postInvitation(this.state.activeStartTime, this.state.activeEndTime, this.participants, this.eventName.input.value)
       .then((response) => {
         console.log('invitation sent!', response);
         this.participants = [];
@@ -82,7 +81,7 @@ class CalendarDialog extends Component {
         onRequestClose={ this.props.closeDialogCallback } >
         <TextField
           hintText="Event Name"
-          ref={ (TextField) => this.eventName = TextField.input }
+          ref={ (TextField) => this.eventName = TextField }
         />
         { this._renderUsers(this.props.users) }
       </Dialog>
