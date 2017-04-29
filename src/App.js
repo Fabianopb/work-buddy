@@ -21,13 +21,7 @@ class App extends Component {
     this.state = {
       isLoading: true,
       isDialogOpen: false,
-      dates: [
-        '2017-05-01',
-        '2017-05-02',
-        '2017-05-03',
-        '2017-05-04',
-        '2017-05-05',
-      ],
+      dates: ['2017-05-01', '2017-05-02', '2017-05-03', '2017-05-04', '2017-05-05'],
       activeStartTime: '',
       activeEndTime: ''
     };
@@ -37,8 +31,9 @@ class App extends Component {
   }
 
   componentWillMount = () => {
-    Requests.getUsers().then((response) => {
-      this.users = response.data.users;
+    Requests.getUsersAndEvents().then((response) => {
+      console.log(response[0].data.users, response[1].data.events);
+      this.users = response[0].data.users;
       this.setState({ isLoading: false });
     }).catch((error) => {
       console.log(error);

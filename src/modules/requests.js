@@ -14,8 +14,16 @@ class Request {
     }
   }
 
+  getUsersAndEvents() {
+    return axios.all([this.getUsers(), this.getAllEvents()]);
+  }
+
   getUsers() {
     return axios.get(`${this.baseUrl}/user`, this.getHeaders());
+  }
+
+  getAllEvents() {
+    return axios.get(`${this.baseUrl}/event`, this.getHeaders());
   }
 
   postInvitation(starts_at, ends_at, users, name) {
