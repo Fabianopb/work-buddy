@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import Requests from '../../modules/requests';
 
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+// import FlatButton from 'material-ui/FlatButton';
+// import SelectField from 'material-ui/SelectField';
+// import MenuItem from 'material-ui/MenuItem';
 
 class CalendarDialog extends Component {
 
@@ -31,17 +31,17 @@ class CalendarDialog extends Component {
     }
   }
 
-  _menuItems = (participants) => {
-    return this.props.users.map((user) => (
-      <MenuItem
-        key={ user.id }
-        insetChildren={ true }
-        checked={ participants && participants.includes(user.id) }
-        value={ user.id }
-        primaryText={ user.name }
-      />
-    ));
-  }
+  // _menuItems = (participants) => {
+  //   return this.props.users.map((user) => (
+  //     <MenuItem
+  //       key={ user.id }
+  //       insetChildren={ true }
+  //       checked={ participants && participants.includes(user.id) }
+  //       value={ user.id }
+  //       primaryText={ user.name }
+  //     />
+  //   ));
+  // }
 
   _handleParticipantsChange = (event, index, participants) => this.setState({ participants });
 
@@ -59,32 +59,31 @@ class CalendarDialog extends Component {
 
     const { participants } = this.state;
 
-    const actions = [
-      <FlatButton
-        label="Send invitation"
-        primary={ true }
-        keyboardFocused={ false }
-        onTouchTap={ this._sendInvitation.bind(this) }
-      />,
-    ];
+    // const actions = [
+    //   <FlatButton
+    //     label="Send invitation"
+    //     primary={ true }
+    //     keyboardFocused={ false }
+    //     onTouchTap={ this._sendInvitation.bind(this) }
+    //   />,
+    // ];
 
     return (
       <Dialog
         title="Schedule a meeting"
-        actions={ actions }
         modal={ false }
         open={ this.state.isDialogOpen }
         onRequestClose={ this.props.closeDialogCallback }
-      >
-        <SelectField
-          multiple={ true }
-          hintText="Select participants"
-          value={ participants }
-          onChange={ this._handleParticipantsChange.bind(this) }
-        >
-          { this._menuItems(participants) }
-        </SelectField>
-      </Dialog>
+      />
+        // <SelectField
+        //   multiple={ true }
+        //   hintText="Select participants"
+        //   value={ participants }
+        //   onChange={ this._handleParticipantsChange.bind(this) }
+        // >
+        //   { this._menuItems(participants) }
+        // </SelectField>
+      // </Dialog>
     );
   }
 }
