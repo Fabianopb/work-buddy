@@ -16,10 +16,19 @@ class App extends Component {
     super(props);
     this.state = {
       isDialogOpen: false,
+      dates: [
+        '2017-05-01',
+        '2017-05-02',
+        '2017-05-03',
+        '2017-05-04',
+        '2017-05-05',
+      ]
     };
+
   }
 
-  _openDialog = () => {
+  _openDialog = (date) => {
+    console.log('opening dialog for date', date);
     this.setState({ isDialogOpen: true });
   };
 
@@ -33,7 +42,7 @@ class App extends Component {
       <MuiThemeProvider>
         <div>
           <CalendarHeader />
-          <CalendarBody openDialogCallback={ this._openDialog.bind(this) } />
+          <CalendarBody dates={ this.state.dates } openDialogCallback={ this._openDialog.bind(this) } />
           <CalendarDialog closeDialogCallback={ this._closeDialog.bind(this) } isDialogOpen={ this.state.isDialogOpen } />
         </div>
       </MuiThemeProvider>
