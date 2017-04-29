@@ -7,6 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CalendarHeader from './components/calendar-header/calendar-header';
 import CalendarBody from './components/calendar-body/calendar-body';
 import CalendarDialog from './components/calendar-dialog/calendar-dialog';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import './App.css';
 
@@ -55,28 +56,26 @@ class App extends Component {
   render() {
 
     return (
-      <div>
+      <MuiThemeProvider>
         { this.state.isLoading ? (
-          <div>Loading</div>
+          <CircularProgress />
         ) : (
-          <MuiThemeProvider>
-            <div>
-              <CalendarHeader />
-              <CalendarBody
-                dates={ this.state.dates }
-                openDialogCallback={ this._openDialog.bind(this) }
-              />
-              <CalendarDialog
-                users={ this.users }
-                closeDialogCallback={ this._closeDialog.bind(this) }
-                isDialogOpen={ this.state.isDialogOpen }
-                activeStartTime={ this.state.activeStartTime }
-                activeEndTime={ this.state.activeEndTime }
-              />
-            </div>
-          </MuiThemeProvider>
+          <div>
+            <CalendarHeader />
+            <CalendarBody
+              dates={ this.state.dates }
+              openDialogCallback={ this._openDialog.bind(this) }
+            />
+            <CalendarDialog
+              users={ this.users }
+              closeDialogCallback={ this._closeDialog.bind(this) }
+              isDialogOpen={ this.state.isDialogOpen }
+              activeStartTime={ this.state.activeStartTime }
+              activeEndTime={ this.state.activeEndTime }
+            />
+          </div>
         )}
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
