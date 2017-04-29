@@ -11,7 +11,8 @@ class CalendarDialog extends Component {
     super(props);
     this.state = {
       isDialogOpen: this.props.isDialogOpen,
-      participants: []
+      participants: [],
+      activeDate: ''
     };
 
     this.names = [
@@ -40,12 +41,15 @@ class CalendarDialog extends Component {
     if (nextProps.isDialogOpen !== this.state.isDialogOpen) {
       this.setState({ isDialogOpen: nextProps.isDialogOpen });
     }
+    if (nextProps.activeDate !== this.state.activeDate) {
+      this.setState({ activeDate: nextProps.activeDate });
+    }
   }
 
   _handleParticipantsChange = (event, index, participants) => this.setState({ participants });
 
   _sendInvitation = () => {
-    console.log("send invitation to...", this.state.participants);
+    console.log("send invitation", this.state.activeDate, this.state.participants);
     this.setState({ participants: [] });
     this.props.closeDialogCallback();
   }
