@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+// import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import Requests from './modules/requests';
+// import Requests from './modules/requests';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import CalendarHeader from './components/calendar-header/calendar-header';
-import CalendarBody from './components/calendar-body/calendar-body';
-import CalendarDialog from './components/calendar-dialog/calendar-dialog';
-import CircularProgress from 'material-ui/CircularProgress';
-import Paper from 'material-ui/Paper';
+// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import CalendarHeader from './components/calendar-header/calendar-header';
+// import CalendarBody from './components/calendar-body/calendar-body';
+// import CalendarDialog from './components/calendar-dialog/calendar-dialog';
+// import CircularProgress from 'material-ui/CircularProgress';
+// import Paper from 'material-ui/Paper';
 
 import './App.css';
 
-injectTapEventPlugin();
+// injectTapEventPlugin();
 
 class App extends Component {
 
@@ -31,15 +31,15 @@ class App extends Component {
 
   }
 
-  componentWillMount = () => {
-    Requests.getUsersAndEvents().then((response) => {
-      this.users = response[0].data.users;
-      this.events = response[1].data.events;
-      this.setState({ isLoading: false });
-    }).catch((error) => {
-      console.log(error);
-    });
-  }
+  // componentWillMount = () => {
+  //   Requests.getUsersAndEvents().then((response) => {
+  //     this.users = response[0].data.users;
+  //     this.events = response[1].data.events;
+  //     this.setState({ isLoading: false });
+  //   }).catch((error) => {
+  //     console.log(error);
+  //   });
+  // }
 
   _openDialog = (activeStartTime, activeEndTime) => {
     this.setState({ activeStartTime, activeEndTime });
@@ -53,27 +53,27 @@ class App extends Component {
   render() {
 
     return (
-      // <div>THIS IS A TEST</div>
-      <MuiThemeProvider>
-        { this.state.isLoading ? (
-          <CircularProgress />
-        ) : (
-          <Paper zDepth={ 2 }>
-            <CalendarHeader
-              dates={ this.state.dates } />
-            <CalendarBody
-              dates={ this.state.dates }
-              events={ this.events }
-              openDialogCallback={ this._openDialog.bind(this) } />
-            <CalendarDialog
-              users={ this.users }
-              closeDialogCallback={ this._closeDialog.bind(this) }
-              isDialogOpen={ this.state.isDialogOpen }
-              activeStartTime={ this.state.activeStartTime }
-              activeEndTime={ this.state.activeEndTime } />
-          </Paper>
-        )}
-      </MuiThemeProvider>
+      <div>THIS IS A TEST</div>
+      // <MuiThemeProvider>
+      //   { this.state.isLoading ? (
+      //     <CircularProgress />
+      //   ) : (
+      //     <Paper zDepth={ 2 }>
+      //       <CalendarHeader
+      //         dates={ this.state.dates } />
+      //       <CalendarBody
+      //         dates={ this.state.dates }
+      //         events={ this.events }
+      //         openDialogCallback={ this._openDialog.bind(this) } />
+      //       <CalendarDialog
+      //         users={ this.users }
+      //         closeDialogCallback={ this._closeDialog.bind(this) }
+      //         isDialogOpen={ this.state.isDialogOpen }
+      //         activeStartTime={ this.state.activeStartTime }
+      //         activeEndTime={ this.state.activeEndTime } />
+      //     </Paper>
+      //   )}
+      // </MuiThemeProvider>
     );
   }
 }
