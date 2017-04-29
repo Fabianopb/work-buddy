@@ -60,20 +60,23 @@ class App extends Component {
         { this.state.isLoading ? (
           <CircularProgress />
         ) : (
-          <Paper zDepth={ 2 }>
-            <CalendarHeader
-              dates={ this.state.dates } />
-            <CalendarBody
-              dates={ this.state.dates }
-              events={ this.events }
-              openDialogCallback={ this._openDialog.bind(this) } />
-            <CalendarDialog
-              users={ this.users }
-              closeDialogCallback={ this._closeDialog.bind(this) }
-              isDialogOpen={ this.state.isDialogOpen }
-              activeStartTime={ this.state.activeStartTime }
-              activeEndTime={ this.state.activeEndTime } />
-          </Paper>
+          <div>
+            <div className="app-title">Meetings Calendar</div>
+            <Paper zDepth={ 2 }>
+              <CalendarHeader
+                dates={ this.state.dates } />
+              <CalendarBody
+                dates={ this.state.dates }
+                events={ this.events }
+                openDialogCallback={ this._openDialog.bind(this) } />
+              <CalendarDialog
+                users={ this.users }
+                closeDialogCallback={ this._closeDialog.bind(this) }
+                isDialogOpen={ this.state.isDialogOpen }
+                activeStartTime={ this.state.activeStartTime }
+                activeEndTime={ this.state.activeEndTime } />
+            </Paper>
+          </div>
         )}
       </MuiThemeProvider>
     );

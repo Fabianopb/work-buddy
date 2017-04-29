@@ -1,3 +1,6 @@
-.debug {
-  border: 2px solid red;
+.app-title {
+  width: 100%;
+  font-size: 2rem;
+  text-align: center;
+  padding: 6px 0;
 }
