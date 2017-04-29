@@ -53,6 +53,7 @@ class App extends Component {
   render() {
 
     return (
+      // <div>THIS IS A TEST</div>
       <MuiThemeProvider>
         { this.state.isLoading ? (
           <CircularProgress />

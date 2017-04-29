@@ -5,7 +5,6 @@
   "dependencies": {
     "axios": "0.16.1",
     "material-ui": "0.17.4",
-    "moment": "2.18.1",
     "react": "15.5.4",
     "react-dom": "15.5.4",
     "react-router-dom": "4.1.1",
@@ -15,7 +14,7 @@
     "react-scripts": "0.9.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start --only=dev && npm install && npm run build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
