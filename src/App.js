@@ -23,13 +23,13 @@ class App extends Component {
         '2017-05-04',
         '2017-05-05',
       ],
-      activeDate: ''
+      activeStartTime: ''
     };
 
   }
 
-  _openDialog = (activeDate) => {
-    this.setState({ activeDate });
+  _openDialog = (activeStartTime) => {
+    this.setState({ activeStartTime });
     this.setState({ isDialogOpen: true });
   };
 
@@ -50,7 +50,7 @@ class App extends Component {
           <CalendarDialog
             closeDialogCallback={ this._closeDialog.bind(this) }
             isDialogOpen={ this.state.isDialogOpen }
-            activeDate={ this.state.activeDate }
+            activeStartTime={ this.state.activeStartTime }
           />
         </div>
       </MuiThemeProvider>

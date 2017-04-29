@@ -11,18 +11,25 @@ class CalendarBody extends Component {
     this.state = {
       dates: this.props.dates
     };
+
+    this.times = ['8:00', '9:00', '10:00', '11:00', '12:00'];
   }
 
-  _renderCalendar(dates) {
+  _renderCalendarDates(dates) {
     return dates.map((date) => {
       return (
         <List key={ date } className="weekday-table">
-          <ListItem primaryText="8:00" onTouchTap={ () => this.props.openDialogCallback(date) } />
-          <ListItem primaryText="9:00" onTouchTap={ () => this.props.openDialogCallback(date) } />
-          <ListItem primaryText="10:00" onTouchTap={ () => this.props.openDialogCallback(date) } />
-          <ListItem primaryText="11:00" onTouchTap={ () => this.props.openDialogCallback(date) } />
-          <ListItem primaryText="12:00" onTouchTap={ () => this.props.openDialogCallback(date) } />
+          { this._renderCalendarTimes(date, this.times) }
         </List>
+      );
+    });
+  }
+
+  _renderCalendarTimes(date, times) {
+    return times.map((time) => {
+      const startTime = `${date}T${time}`;
+      return (
+        <ListItem key={ startTime } primaryText={ time } onTouchTap={ () => this.props.openDialogCallback(startTime) } />
       );
     });
   }
@@ -30,7 +37,7 @@ class CalendarBody extends Component {
   render() {
     return (
       <div className="calendar-box">
-        { this._renderCalendar(this.state.dates) }
+        { this._renderCalendarDates(this.state.dates) }
       </div>
     );
   }
