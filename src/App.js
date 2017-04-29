@@ -58,7 +58,9 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         { this.state.isLoading ? (
-          <CircularProgress />
+          <div className="wrapper">
+            <CircularProgress className="progress" size={100} />
+          </div>
         ) : (
           <div>
             <div className="app-title">Meetings Calendar</div>
