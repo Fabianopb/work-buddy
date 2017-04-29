@@ -8,5 +8,10 @@
 }
 
 .scheduled {
+  height: 64px;
   background: #2ecc71 !important;
+}
+
+.non-scheduled {
+  height: 64px;
 }

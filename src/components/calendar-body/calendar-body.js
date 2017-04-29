@@ -31,12 +31,21 @@ class CalendarBody extends Component {
     return times.map((time) => {
       const startTime = moment(date).startOf('d').add(time, 'h').valueOf();
       const endTime = moment(startTime).add(1, 'h').valueOf();
+      const eventName = this._isTimeScheduled(startTime);
+      console.log(eventName);
       return (
-        <ListItem
-          className={ this._isTimeScheduled(startTime) }
-          key={ startTime }
-          primaryText={ moment(startTime).format('HH:mm') }
-          onTouchTap={ () => this.props.openDialogCallback(startTime, endTime) } />
+        eventName ? (
+          <ListItem
+            className="scheduled"
+            key={ startTime }
+            primaryText={ `${moment(startTime).format('HH:mm')} - ${eventName}` } />
+        ) : (
+          <ListItem
+            className="non-scheduled"
+            key={ startTime }
+            primaryText={ moment(startTime).format('HH:mm') }
+            onTouchTap={ () => this.props.openDialogCallback(startTime, endTime) } />
+        )
       );
     });
   }
@@ -44,10 +53,10 @@ class CalendarBody extends Component {
   _isTimeScheduled(startTime) {
     for (let event of this.props.events) {
       if (moment(event.starts_at).isSame(moment(startTime))) {
-        return 'scheduled';
+        return event.name;
       }
     }
-    return '';
+    return null;
   }
 
   render() {

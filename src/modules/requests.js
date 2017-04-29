@@ -27,7 +27,6 @@ class Request {
   }
 
   postInvitation(starts_at, ends_at, users, name) {
-    name = 'A hard-coded name';
     starts_at /= 1000;
     ends_at /= 1000;
     return axios.post(`${this.baseUrl}/event`, { starts_at, ends_at, users, name }, this.getHeaders());

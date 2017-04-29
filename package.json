@@ -6,7 +6,6 @@
     "axios": "0.16.1",
     "material-ui": "0.17.4",
     "moment": "2.18.1",
-    "moment-timezone": "^0.5.13",
     "react": "15.5.4",
     "react-dom": "15.5.4",
     "react-router-dom": "4.1.1",

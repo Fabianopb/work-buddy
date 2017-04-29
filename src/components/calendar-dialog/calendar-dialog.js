@@ -5,6 +5,7 @@ import Requests from '../../modules/requests';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Checkbox from 'material-ui/Checkbox';
+import TextField from 'material-ui/TextField';
 
 class CalendarDialog extends Component {
 
@@ -17,6 +18,7 @@ class CalendarDialog extends Component {
       activeEndTime: ''
     };
     this.participants = [];
+    this.eventName = '';
   }
 
   componentWillReceiveProps(nextProps) {
@@ -49,14 +51,15 @@ class CalendarDialog extends Component {
       this.props.closeDialogCallback();
       return null;
     }
-    Requests.postInvitation(this.state.activeStartTime, this.state.activeEndTime, this.participants).then((response) => {
-      console.log('invitation sent!', response);
-      this.participants = [];
-      this.props.closeDialogCallback();
-    }).catch((error) => {
-      console.log(error);
-      this.props.closeDialogCallback();
-    });
+    Requests.postInvitation(this.state.activeStartTime, this.state.activeEndTime, this.participants, this.eventName.value)
+      .then((response) => {
+        console.log('invitation sent!', response);
+        this.participants = [];
+        this.props.closeDialogCallback();
+      }).catch((error) => {
+        console.log(error);
+        this.props.closeDialogCallback();
+      });
   }
 
   render() {
@@ -77,6 +80,10 @@ class CalendarDialog extends Component {
         modal={ false }
         open={ this.state.isDialogOpen }
         onRequestClose={ this.props.closeDialogCallback } >
+        <TextField
+          hintText="Event Name"
+          ref={ (TextField) => this.eventName = TextField.input }
+        />
         { this._renderUsers(this.props.users) }
       </Dialog>
     );
