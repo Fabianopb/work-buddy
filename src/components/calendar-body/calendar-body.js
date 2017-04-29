@@ -14,7 +14,7 @@ class CalendarBody extends Component {
       dates: this.props.dates
     };
 
-    this.times = [8, 9, 10, 11, 12];
+    this.times = [8, 9, 10, 11, 12, 13, 14, 15, 16];
   }
 
   _renderCalendarDates(dates) {
@@ -29,14 +29,13 @@ class CalendarBody extends Component {
 
   _renderCalendarTimes(date, times) {
     return times.map((time) => {
-      time = time < 10 ? `0${time}` : `${time}`;
-      const startTime = `${date}T${time}:00:00`;
-      const endTime = `${date}T${time + 1}:00:00`;
+      const startTime = moment(date).startOf('d').add(time, 'h').toISOString();
+      const endTime = moment(startTime).add(1, 'h').toISOString();
       return (
         <ListItem
           className={ this._isTimeScheduled(startTime) }
           key={ startTime }
-          primaryText={ `${time}:00` }
+          primaryText={ moment(startTime).format('HH:mm') }
           onTouchTap={ () => this.props.openDialogCallback(startTime, endTime) } />
       );
     });

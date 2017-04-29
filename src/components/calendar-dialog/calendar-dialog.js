@@ -4,8 +4,7 @@ import Requests from '../../modules/requests';
 
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-// import SelectField from 'material-ui/SelectField';
-// import MenuItem from 'material-ui/MenuItem';
+import Checkbox from 'material-ui/Checkbox';
 
 class CalendarDialog extends Component {
 
@@ -17,6 +16,7 @@ class CalendarDialog extends Component {
       activeStartTime: '',
       activeEndTime: ''
     };
+    this.participants = [];
   }
 
   componentWillReceiveProps(nextProps) {
@@ -31,38 +31,35 @@ class CalendarDialog extends Component {
     }
   }
 
-  // _menuItems = (participants) => {
-  //   return this.props.users.map((user) => (
-  //     <MenuItem
-  //       key={ user.id }
-  //       insetChildren={ true }
-  //       checked={ participants && participants.includes(user.id) }
-  //       value={ user.id }
-  //       primaryText={ user.name }
-  //     />
-  //   ));
-  // }
+  _appendParticipant = (participant) => {
+    return () => this.participants.push(participant);
+  }
 
-  _handleParticipantsChange = (event, index, participants) => this.setState({ participants });
+  _renderUsers = () => {
+    return this.props.users.map((user) => {
+      return (
+        <Checkbox key={ user.id } label={ user.name } onCheck={ this._appendParticipant(user.id) } />
+      );
+    });
+  }
 
   _sendInvitation = () => {
-    if (this.state.participants.length === 0) {
+    if (this.participants.length === 0) {
       console.log('List of participants is empty!');
       this.props.closeDialogCallback();
       return null;
     }
-    Requests.postInvitation(this.state.activeStartTime, this.state.activeEndTime, this.state.participants).then((response) => {
+    Requests.postInvitation(this.state.activeStartTime, this.state.activeEndTime, this.participants).then((response) => {
       console.log('invitation sent!', response);
-      this.setState({ participants: [] });
+      this.participants = [];
       this.props.closeDialogCallback();
     }).catch((error) => {
-      console.log(error.response);
+      console.log(error);
+      this.props.closeDialogCallback();
     });
   }
 
   render() {
-
-    const { participants } = this.state;
 
     const actions = [
       <FlatButton
@@ -79,17 +76,9 @@ class CalendarDialog extends Component {
         actions={ actions }
         modal={ false }
         open={ this.state.isDialogOpen }
-        onRequestClose={ this.props.closeDialogCallback }
-      />
-        // <SelectField
-        //   multiple={ true }
-        //   hintText="Select participants"
-        //   value={ participants }
-        //   onChange={ this._handleParticipantsChange.bind(this) }
-        // >
-        //   { this._menuItems(participants) }
-        // </SelectField>
-      // </Dialog>
+        onRequestClose={ this.props.closeDialogCallback } >
+        { this._renderUsers(this.props.users) }
+      </Dialog>
     );
   }
 }
