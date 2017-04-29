@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 
 // import Requests from './modules/requests';
 
-// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import CalendarHeader from './components/calendar-header/calendar-header';
 // import CalendarBody from './components/calendar-body/calendar-body';
 // import CalendarDialog from './components/calendar-dialog/calendar-dialog';
 // import CircularProgress from 'material-ui/CircularProgress';
-// import Paper from 'material-ui/Paper';
+import Paper from 'material-ui/Paper';
 
 import './App.css';
 
@@ -53,7 +53,9 @@ class App extends Component {
   render() {
 
     return (
-      <div>THIS IS A TEST</div>
+      <MuiThemeProvider>
+        <Paper zDepth={ 2 }>THIS IS A TEST</Paper>
+      </MuiThemeProvider>
       // <MuiThemeProvider>
       //   { this.state.isLoading ? (
       //     <CircularProgress />
