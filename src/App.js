@@ -27,13 +27,14 @@ class App extends Component {
     };
 
     this.users = [];
+    this.events = [];
 
   }
 
   componentWillMount = () => {
     Requests.getUsersAndEvents().then((response) => {
-      console.log(response[0].data.users, response[1].data.events);
       this.users = response[0].data.users;
+      this.events = response[1].data.events;
       this.setState({ isLoading: false });
     }).catch((error) => {
       console.log(error);
@@ -61,6 +62,7 @@ class App extends Component {
               dates={ this.state.dates } />
             <CalendarBody
               dates={ this.state.dates }
+              events={ this.events }
               openDialogCallback={ this._openDialog.bind(this) } />
             <CalendarDialog
               users={ this.users }
