@@ -18,8 +18,9 @@ class Request {
     return axios.get(`${this.baseUrl}/user`, this.getHeaders());
   }
 
-  postInvitation(startTime, participants) {
-    return axios.post(`${this.baseUrl}/event`, { startTime, participants }, this.getHeaders());
+  postInvitation(starts_at, ends_at, users, name) {
+    name = 'A hard-coded name';
+    return axios.post(`${this.baseUrl}/event`, { starts_at, ends_at, users, name }, this.getHeaders());
   }
 
 }

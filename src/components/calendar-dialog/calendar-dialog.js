@@ -14,7 +14,8 @@ class CalendarDialog extends Component {
     this.state = {
       isDialogOpen: this.props.isDialogOpen,
       participants: [],
-      activeStartTime: ''
+      activeStartTime: '',
+      activeEndTime: ''
     };
   }
 
@@ -24,6 +25,9 @@ class CalendarDialog extends Component {
     }
     if (nextProps.activeStartTime !== this.state.activeStartTime) {
       this.setState({ activeStartTime: nextProps.activeStartTime });
+    }
+    if (nextProps.activeEndTime !== this.state.activeEndTime) {
+      this.setState({ activeEndTime: nextProps.activeEndTime });
     }
   }
 
@@ -43,15 +47,13 @@ class CalendarDialog extends Component {
   _handleParticipantsChange = (event, index, participants) => this.setState({ participants });
 
   _sendInvitation = () => {
-    // Requests.postInvitation(this.state.activeStartTime, this.state.participants).then((response) => {
-    //   console.log('invitation sent!');
-    //   this.setState({ participants: [] });
-    //   this.props.closeDialogCallback();
-    //   this.setState({ data: this.state.data.concat(this._renderBeers([response.data.beer])) });
-    // }).catch((error) => {
-    //   console.log(error.response);
-    // });
-    console.log(this.state.activeStartTime, this.state.participants);
+    Requests.postInvitation(this.state.activeStartTime, this.state.activeEndTime, this.state.participants).then((response) => {
+      console.log('invitation sent!', response);
+      this.setState({ participants: [] });
+      this.props.closeDialogCallback();
+    }).catch((error) => {
+      console.log(error.response);
+    });
   }
 
   render() {

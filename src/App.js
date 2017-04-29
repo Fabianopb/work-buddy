@@ -26,7 +26,8 @@ class App extends Component {
         '2017-05-04',
         '2017-05-05',
       ],
-      activeStartTime: ''
+      activeStartTime: '',
+      activeEndTime: ''
     };
 
     this.users = [];
@@ -42,8 +43,8 @@ class App extends Component {
     });
   }
 
-  _openDialog = (activeStartTime) => {
-    this.setState({ activeStartTime });
+  _openDialog = (activeStartTime, activeEndTime) => {
+    this.setState({ activeStartTime, activeEndTime });
     this.setState({ isDialogOpen: true });
   };
 
@@ -70,6 +71,7 @@ class App extends Component {
                 closeDialogCallback={ this._closeDialog.bind(this) }
                 isDialogOpen={ this.state.isDialogOpen }
                 activeStartTime={ this.state.activeStartTime }
+                activeEndTime={ this.state.activeEndTime }
               />
             </div>
           </MuiThemeProvider>
