@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-// import injectTapEventPlugin from 'react-tap-event-plugin';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
-// import Requests from './modules/requests';
+import Requests from './modules/requests';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // import CalendarHeader from './components/calendar-header/calendar-header';
 // import CalendarBody from './components/calendar-body/calendar-body';
 // import CalendarDialog from './components/calendar-dialog/calendar-dialog';
-// import CircularProgress from 'material-ui/CircularProgress';
+import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
 
 import './App.css';
 
-// injectTapEventPlugin();
+injectTapEventPlugin();
 
 class App extends Component {
 
@@ -31,15 +31,15 @@ class App extends Component {
 
   }
 
-  // componentWillMount = () => {
-  //   Requests.getUsersAndEvents().then((response) => {
-  //     this.users = response[0].data.users;
-  //     this.events = response[1].data.events;
-  //     this.setState({ isLoading: false });
-  //   }).catch((error) => {
-  //     console.log(error);
-  //   });
-  // }
+  componentWillMount = () => {
+    Requests.getUsersAndEvents().then((response) => {
+      this.users = response[0].data.users;
+      this.events = response[1].data.events;
+      this.setState({ isLoading: false });
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
 
   _openDialog = (activeStartTime, activeEndTime) => {
     this.setState({ activeStartTime, activeEndTime });
@@ -54,7 +54,11 @@ class App extends Component {
 
     return (
       <MuiThemeProvider>
-        <Paper zDepth={ 2 }>THIS IS A TEST</Paper>
+        { this.state.isLoading ? (
+            <CircularProgress />
+          ) : (
+            <Paper zDepth={ 2 }>THIS IS A TEST</Paper>
+          )}
       </MuiThemeProvider>
       // <MuiThemeProvider>
       //   { this.state.isLoading ? (
