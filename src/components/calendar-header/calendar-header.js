@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 
 import './calendar-header.css';
 
 class CalendarHeader extends Component {
 
-  constructor(props) {
-    super(props);
-    this.weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-  }
-
   _renderHeaderDates(dates) {
-    return dates.map((date, index) => {
-      return ( <div key={ index } className="weekday-title">{this.weekdays[index]}: {date}</div> );
+    return dates.map((date) => {
+      return (
+        <div key={ date } className="weekday-title">
+          <div>{moment(date).format('dddd')}</div>
+          <div>{moment(date).format('MMM DD')}</div>
+        </div>
+      );
     });
   }
 
