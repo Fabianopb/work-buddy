@@ -2,7 +2,9 @@
   display: flex;
 }
 
-.weekday-table {
+.calendar-column {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   border: 1px dotted lightgrey;
 }

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import moment from 'moment';
 
-import {List, ListItem} from 'material-ui/List';
-
 import './calendar-body.css';
 
 class CalendarBody extends Component {
@@ -20,9 +18,9 @@ class CalendarBody extends Component {
   _renderCalendarDates(dates) {
     return dates.map((date) => {
       return (
-        <List key={ date } className="weekday-table">
+        <div key={ date } className="calendar-column">
           { this._renderCalendarTimes(date, this.times) }
-        </List>
+        </div>
       );
     });
   }
@@ -34,16 +32,18 @@ class CalendarBody extends Component {
       const eventName = this._isTimeScheduled(startTime);
       return (
         eventName ? (
-          <ListItem
+          <div
             className="scheduled"
-            key={ startTime }
-            primaryText={ `${moment(startTime).format('HH:mm')} - ${eventName}` } />
+            key={ startTime } >
+            { `${moment(startTime).format('HH:mm')} - ${eventName}` }
+          </div>
         ) : (
-          <ListItem
+          <div
             className="non-scheduled"
             key={ startTime }
-            primaryText={ moment(startTime).format('HH:mm') }
-            onTouchTap={ () => this.props.openDialogCallback(startTime, endTime) } />
+            onClick={ () => this.props.openDialogCallback(startTime, endTime) } >
+            { `${moment(startTime).format('HH:mm')}` }
+          </div>
         )
       );
     });
