@@ -8,6 +8,7 @@ import CalendarHeader from './components/calendar-header/calendar-header';
 import CalendarBody from './components/calendar-body/calendar-body';
 import CalendarDialog from './components/calendar-dialog/calendar-dialog';
 import CircularProgress from 'material-ui/CircularProgress';
+import Paper from 'material-ui/Paper';
 
 import './App.css';
 
@@ -60,7 +61,7 @@ class App extends Component {
         { this.state.isLoading ? (
           <CircularProgress />
         ) : (
-          <div>
+          <Paper zDepth={ 2 }>
             <CalendarHeader
               dates={ this.state.dates } />
             <CalendarBody
@@ -72,7 +73,7 @@ class App extends Component {
               isDialogOpen={ this.state.isDialogOpen }
               activeStartTime={ this.state.activeStartTime }
               activeEndTime={ this.state.activeEndTime } />
-          </div>
+          </Paper>
         )}
       </MuiThemeProvider>
     );
