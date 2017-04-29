@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import moment from 'moment-timezone';
+import moment from 'moment';
 
 import {List, ListItem} from 'material-ui/List';
 
