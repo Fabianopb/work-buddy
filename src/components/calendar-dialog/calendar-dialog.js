@@ -55,6 +55,7 @@ class CalendarDialog extends Component {
         console.log('invitation sent!', response);
         this.participants = [];
         this.props.closeDialogCallback();
+        window.location.reload();
       }).catch((error) => {
         console.log(error);
         this.props.closeDialogCallback();
@@ -81,8 +82,7 @@ class CalendarDialog extends Component {
         onRequestClose={ this.props.closeDialogCallback } >
         <TextField
           hintText="Event Name"
-          ref={ (TextField) => this.eventName = TextField }
-        />
+          ref={ (TextField) => this.eventName = TextField } />
         { this._renderUsers(this.props.users) }
       </Dialog>
     );
