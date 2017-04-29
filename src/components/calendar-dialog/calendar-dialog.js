@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Requests from '../../modules/requests';
+import Socket from '../../modules/socket';
 
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -32,6 +33,12 @@ class CalendarDialog extends Component {
     }
   }
 
+  componentDidMount() {
+    Socket.registerMessage('new event', (data) => {
+      window.location.reload();
+    });
+  }
+
   _appendParticipant = (participant) => {
     return () => this.participants.push(participant);
   }
@@ -55,7 +62,6 @@ class CalendarDialog extends Component {
         console.log('invitation sent!', response);
         this.participants = [];
         this.props.closeDialogCallback();
-        window.location.reload();
       }).catch((error) => {
         console.log(error);
         this.props.closeDialogCallback();

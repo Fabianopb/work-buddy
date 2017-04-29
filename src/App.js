@@ -53,6 +53,10 @@ class App extends Component {
     this.setState({ isDialogOpen: false });
   };
 
+  _handleData = () => {
+    console.log('I got a message!');
+  }
+
   render() {
 
     return (
@@ -78,6 +82,7 @@ class App extends Component {
                 activeStartTime={ this.state.activeStartTime }
                 activeEndTime={ this.state.activeEndTime } />
             </Paper>
+
           </div>
         )}
       </MuiThemeProvider>
