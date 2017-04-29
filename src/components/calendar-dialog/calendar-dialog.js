@@ -32,7 +32,6 @@ class CalendarDialog extends Component {
   }
 
   _menuItems = (participants) => {
-    const names = this.props.users.map(user => user.name);
     return this.props.users.map((user) => (
       <MenuItem
         key={ user.id }

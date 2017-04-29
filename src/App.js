@@ -61,18 +61,17 @@ class App extends Component {
           <CircularProgress />
         ) : (
           <div>
-            <CalendarHeader />
+            <CalendarHeader
+              dates={ this.state.dates } />
             <CalendarBody
               dates={ this.state.dates }
-              openDialogCallback={ this._openDialog.bind(this) }
-            />
+              openDialogCallback={ this._openDialog.bind(this) } />
             <CalendarDialog
               users={ this.users }
               closeDialogCallback={ this._closeDialog.bind(this) }
               isDialogOpen={ this.state.isDialogOpen }
               activeStartTime={ this.state.activeStartTime }
-              activeEndTime={ this.state.activeEndTime }
-            />
+              activeEndTime={ this.state.activeEndTime } />
           </div>
         )}
       </MuiThemeProvider>

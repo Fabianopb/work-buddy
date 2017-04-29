@@ -4,14 +4,21 @@ import './calendar-header.css';
 
 class CalendarHeader extends Component {
 
+  constructor(props) {
+    super(props);
+    this.weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+  }
+
+  _renderHeaderDates(dates) {
+    return dates.map((date, index) => {
+      return ( <div key={ index } className="weekday-title">{this.weekdays[index]}: {date}</div> );
+    });
+  }
+
   render() {
     return (
       <div className="calendar-title">
-        <div className="weekday-title">Mon</div>
-        <div className="weekday-title">Tue</div>
-        <div className="weekday-title">Wed</div>
-        <div className="weekday-title">Thu</div>
-        <div className="weekday-title">Fri</div>
+        { this._renderHeaderDates(this.props.dates) }
       </div>
     );
   }
