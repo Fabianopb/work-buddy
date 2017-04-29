@@ -5,7 +5,7 @@ import Requests from './modules/requests';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CalendarHeader from './components/calendar-header/calendar-header';
-// import CalendarBody from './components/calendar-body/calendar-body';
+import CalendarBody from './components/calendar-body/calendar-body';
 // import CalendarDialog from './components/calendar-dialog/calendar-dialog';
 import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
@@ -60,6 +60,10 @@ class App extends Component {
           <Paper zDepth={ 2 }>
             <CalendarHeader
               dates={ this.state.dates } />
+            <CalendarBody
+              dates={ this.state.dates }
+              events={ this.events }
+               />
 
           </Paper>
         )}
