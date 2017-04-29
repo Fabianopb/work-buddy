@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
+import Requests from './modules/requests';
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CalendarHeader from './components/calendar-header/calendar-header';
 import CalendarBody from './components/calendar-body/calendar-body';
 import CalendarDialog from './components/calendar-dialog/calendar-dialog';
@@ -15,6 +17,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
       isDialogOpen: false,
       dates: [
         '2017-05-01',
@@ -26,6 +29,17 @@ class App extends Component {
       activeStartTime: ''
     };
 
+    this.users = [];
+
+  }
+
+  componentWillMount = () => {
+    Requests.getUsers().then((response) => {
+      this.users = response.data.users;
+      this.setState({ isLoading: false });
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   _openDialog = (activeStartTime) => {
@@ -40,20 +54,27 @@ class App extends Component {
   render() {
 
     return (
-      <MuiThemeProvider>
-        <div>
-          <CalendarHeader />
-          <CalendarBody
-            dates={ this.state.dates }
-            openDialogCallback={ this._openDialog.bind(this) }
-          />
-          <CalendarDialog
-            closeDialogCallback={ this._closeDialog.bind(this) }
-            isDialogOpen={ this.state.isDialogOpen }
-            activeStartTime={ this.state.activeStartTime }
-          />
-        </div>
-      </MuiThemeProvider>
+      <div>
+        { this.state.isLoading ? (
+          <div>Loading</div>
+        ) : (
+          <MuiThemeProvider>
+            <div>
+              <CalendarHeader />
+              <CalendarBody
+                dates={ this.state.dates }
+                openDialogCallback={ this._openDialog.bind(this) }
+              />
+              <CalendarDialog
+                users={ this.users }
+                closeDialogCallback={ this._closeDialog.bind(this) }
+                isDialogOpen={ this.state.isDialogOpen }
+                activeStartTime={ this.state.activeStartTime }
+              />
+            </div>
+          </MuiThemeProvider>
+        )}
+      </div>
     );
   }
 }

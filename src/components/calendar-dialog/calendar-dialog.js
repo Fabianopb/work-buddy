@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import Requests from '../../modules/requests';
+
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
@@ -14,27 +16,6 @@ class CalendarDialog extends Component {
       participants: [],
       activeStartTime: ''
     };
-
-    this.names = [
-      'Bank',
-      'Fabiano',
-      'Khan',
-      'Mariko',
-      'Napat',
-      'Tom'
-    ];
-
-    this._menuItems = (participants) => {
-      return this.names.map((name) => (
-        <MenuItem
-          key={ name }
-          insetChildren={ true }
-          checked={ participants && participants.includes(name) }
-          value={ name }
-          primaryText={ name }
-        />
-      ));
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,12 +27,31 @@ class CalendarDialog extends Component {
     }
   }
 
+  _menuItems = (participants) => {
+    const names = this.props.users.map(user => user.name);
+    return this.props.users.map((user) => (
+      <MenuItem
+        key={ user.id }
+        insetChildren={ true }
+        checked={ participants && participants.includes(user.id) }
+        value={ user.id }
+        primaryText={ user.name }
+      />
+    ));
+  }
+
   _handleParticipantsChange = (event, index, participants) => this.setState({ participants });
 
   _sendInvitation = () => {
-    console.log("send invitation", this.state.activeStartTime, this.state.participants);
-    this.setState({ participants: [] });
-    this.props.closeDialogCallback();
+    // Requests.postInvitation(this.state.activeStartTime, this.state.participants).then((response) => {
+    //   console.log('invitation sent!');
+    //   this.setState({ participants: [] });
+    //   this.props.closeDialogCallback();
+    //   this.setState({ data: this.state.data.concat(this._renderBeers([response.data.beer])) });
+    // }).catch((error) => {
+    //   console.log(error.response);
+    // });
+    console.log(this.state.activeStartTime, this.state.participants);
   }
 
   render() {
