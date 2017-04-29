@@ -1,8 +1,11 @@
 .calendar-title {
+  background-color: #ECECEC;
   display: flex;
 }
 
 .weekday-title {
+  font-size: 1.1rem;
+  font-weight: bold;
   padding: 6px 0;
   flex: 1;
   text-align: center;

@@ -1,8 +1,8 @@
 .app-title {
   width: 100%;
-  font-size: 2rem;
+  font-size: 1.8rem;
   text-align: center;
-  padding: 6px 0;
+  padding-bottom: 6px;
 }
 
 .wrapper {
