@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Requests from '../../modules/requests';
-import Socket from '../../modules/socket';
+import moment from 'moment';
 
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -14,9 +14,10 @@ class CalendarDialog extends Component {
     super(props);
     this.state = {
       isDialogOpen: this.props.isDialogOpen,
-      participants: [],
-      activeStartTime: '',
-      activeEndTime: ''
+      participants: this.props.participants,
+      activeStartTime: this.props.activeStartTime,
+      activeEndTime: this.props.activeEndTime,
+      eventName: this.props.eventName
     };
     this.participants = [];
   }
@@ -31,12 +32,12 @@ class CalendarDialog extends Component {
     if (nextProps.activeEndTime !== this.state.activeEndTime) {
       this.setState({ activeEndTime: nextProps.activeEndTime });
     }
-  }
-
-  componentDidMount() {
-    Socket.registerMessage('new event', (data) => {
-      window.location.reload();
-    });
+    if (nextProps.eventName !== this.state.eventName) {
+      this.setState({ eventName: nextProps.eventName });
+    }
+    if (nextProps.participants !== this.state.participants) {
+      this.setState({ participants: nextProps.participants });
+    }
   }
 
   _appendParticipant = (participant) => {
@@ -46,12 +47,17 @@ class CalendarDialog extends Component {
   _renderUsers = () => {
     return this.props.users.map((user) => {
       return (
-        <Checkbox key={ user.id } label={ user.name } onCheck={ this._appendParticipant(user.id) } />
+        <Checkbox
+          key={ user.id }
+          label={ user.name }
+          onCheck={ this._appendParticipant(user.id) }
+          defaultChecked={ this.state.participants ? this.state.participants.indexOf(user.id) >= 0 : false } />
       );
     });
   }
 
   _sendInvitation = () => {
+    this.participants = this.state.participants || this.participants;
     if (this.participants.length === 0) {
       console.log('List of participants is empty!');
       this.props.closeDialogCallback();
@@ -81,13 +87,14 @@ class CalendarDialog extends Component {
 
     return (
       <Dialog
-        title="Schedule a meeting"
+        title={`Schedule a meeting on ${moment(this.state.activeStartTime).format('LLLL')}`}
         actions={ actions }
         modal={ false }
         open={ this.state.isDialogOpen }
         onRequestClose={ this.props.closeDialogCallback } >
         <TextField
           hintText="Event Name"
+          defaultValue={ this.state.eventName }
           ref={ (TextField) => this.eventName = TextField } />
         { this._renderUsers(this.props.users) }
       </Dialog>

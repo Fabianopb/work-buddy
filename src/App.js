@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Requests from './modules/requests';
+import Socket from './modules/socket';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CalendarHeader from './components/calendar-header/calendar-header';
@@ -22,12 +23,26 @@ class App extends Component {
       isDialogOpen: false,
       dates: ['2017-05-01', '2017-05-02', '2017-05-03', '2017-05-04', '2017-05-05'],
       activeStartTime: '',
-      activeEndTime: ''
+      activeEndTime: '',
+      eventName: '',
+      participants: []
     };
 
     this.users = [];
     this.events = [];
 
+  }
+
+  componentDidMount() {
+    Socket.registerMessage('new event', (data) => {
+      window.location.reload();
+    });
+    Socket.registerMessage('verify event', (data) => {
+      const parsedData = JSON.parse(data);
+      parsedData.starts_at *= 1000;
+      parsedData.ends_at *= 1000;
+      this._openDialog(parsedData.starts_at, parsedData.ends_at, parsedData.name, parsedData.users);
+    });
   }
 
   componentWillMount = () => {
@@ -44,18 +59,14 @@ class App extends Component {
     });
   }
 
-  _openDialog = (activeStartTime, activeEndTime) => {
-    this.setState({ activeStartTime, activeEndTime });
+  _openDialog = (activeStartTime, activeEndTime, eventName, participants) => {
+    this.setState({ activeStartTime, activeEndTime, eventName, participants });
     this.setState({ isDialogOpen: true });
   };
 
   _closeDialog = () => {
     this.setState({ isDialogOpen: false });
   };
-
-  _handleData = () => {
-    console.log('I got a message!');
-  }
 
   render() {
 
@@ -80,9 +91,10 @@ class App extends Component {
                 closeDialogCallback={ this._closeDialog.bind(this) }
                 isDialogOpen={ this.state.isDialogOpen }
                 activeStartTime={ this.state.activeStartTime }
-                activeEndTime={ this.state.activeEndTime } />
+                activeEndTime={ this.state.activeEndTime }
+                eventName={ this.state.eventName }
+                participants={ this.state.participants } />
             </Paper>
-
           </div>
         )}
       </MuiThemeProvider>
