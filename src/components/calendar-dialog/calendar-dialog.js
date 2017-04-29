@@ -44,6 +44,12 @@ class CalendarDialog extends Component {
 
   _handleParticipantsChange = (event, index, participants) => this.setState({ participants });
 
+  _sendInvitation = () => {
+    console.log("send invitation to...", this.state.participants);
+    this.setState({ participants: [] });
+    this.props.closeDialogCallback();
+  }
+
   render() {
 
     const { participants } = this.state;
@@ -53,7 +59,7 @@ class CalendarDialog extends Component {
         label="Send invitation"
         primary={ true }
         keyboardFocused={ false }
-        onTouchTap={ this.props.closeDialogCallback }
+        onTouchTap={ this._sendInvitation.bind(this) }
       />,
     ];
 
@@ -69,7 +75,7 @@ class CalendarDialog extends Component {
           multiple={ true }
           hintText="Select participants"
           value={ participants }
-          onChange={ this._handleParticipantsChange }
+          onChange={ this._handleParticipantsChange.bind(this) }
         >
           { this._menuItems(participants) }
         </SelectField>
