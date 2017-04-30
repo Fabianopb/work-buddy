@@ -93,7 +93,7 @@ class App extends Component {
 
     return (
       <MuiThemeProvider>
-        { this.state.isLoading ? (
+        { true ? (
           <div className="wrapper">
             <CircularProgress className="progress" size={100} />
           </div>
