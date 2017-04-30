@@ -7,6 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import CalendarHeader from './components/calendar-header/calendar-header';
 import CalendarBody from './components/calendar-body/calendar-body';
 import CalendarDialog from './components/calendar-dialog/calendar-dialog';
+import InfoDialog from './components/info-dialog/info-dialog';
 import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
 
@@ -21,11 +22,12 @@ class App extends Component {
     this.state = {
       isLoading: true,
       isDialogOpen: false,
+      isInfoDialogOpen: false,
       dates: ['2017-05-01', '2017-05-02', '2017-05-03', '2017-05-04', '2017-05-05'],
       activeStartTime: '',
       activeEndTime: '',
       eventName: '',
-      participants: []
+      participants: [],
     };
 
     this.users = [];
@@ -68,6 +70,22 @@ class App extends Component {
     this.setState({ isDialogOpen: false });
   };
 
+  _openInfoDialog = (eventId) => {
+    Requests.getEventById(eventId).then((response) => {
+      response.data.starts_at *= 1000;
+      this.setState({
+        activeStartTime: response.data.starts_at,
+        eventName: response.data.name,
+        participants: response.data.users,
+        isInfoDialogOpen: true
+      });
+    });
+  }
+
+  _closeInfoDialog = () => {
+    this.setState({ isInfoDialogOpen: false });
+  };
+
   render() {
 
     return (
@@ -85,7 +103,8 @@ class App extends Component {
               <CalendarBody
                 dates={ this.state.dates }
                 events={ this.events }
-                openDialogCallback={ this._openDialog.bind(this) } />
+                openDialogCallback={ this._openDialog.bind(this) }
+                openInfoDialogCallback={ this._openInfoDialog.bind(this) } />
               <CalendarDialog
                 users={ this.users }
                 closeDialogCallback={ this._closeDialog.bind(this) }
@@ -94,6 +113,12 @@ class App extends Component {
                 activeEndTime={ this.state.activeEndTime }
                 eventName={ this.state.eventName }
                 participants={ this.state.participants } />
+              <InfoDialog
+                activeStartTime={ this.state.activeStartTime }
+                eventName={ this.state.eventName }
+                participants={ this.state.participants }
+                isInfoDialogOpen={ this.state.isInfoDialogOpen }
+                closeInfoDialogCallback={ this._closeInfoDialog.bind(this) } />
             </Paper>
           </div>
         )}

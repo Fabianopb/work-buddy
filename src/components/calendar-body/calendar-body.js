@@ -29,13 +29,14 @@ class CalendarBody extends Component {
     return times.map((time) => {
       const startTime = moment(date).startOf('d').add(time, 'h').valueOf();
       const endTime = moment(startTime).add(1, 'h').valueOf();
-      const eventName = this._isTimeScheduled(startTime);
+      const event = this._isTimeScheduled(startTime);
       return (
-        eventName ? (
+        event ? (
           <div
             className="scheduled"
-            key={ startTime } >
-            { `${moment(startTime).format('HH:mm')} - ${eventName}` }
+            key={ event.id }
+            onClick={ () => this.props.openInfoDialogCallback(event.id) } >
+            { `${moment(startTime).format('HH:mm')} - ${event.name}` }
           </div>
         ) : (
           <div
@@ -52,7 +53,7 @@ class CalendarBody extends Component {
   _isTimeScheduled(startTime) {
     for (let event of this.props.events) {
       if (moment(event.starts_at).isSame(moment(startTime))) {
-        return event.name;
+        return event;
       }
     }
     return null;
