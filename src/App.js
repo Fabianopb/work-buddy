@@ -28,6 +28,9 @@ class App extends Component {
       activeEndTime: '',
       eventName: '',
       participants: [],
+      infoActiveStartTime: '',
+      infoEventName: '',
+      infoParticipants: [],
     };
 
     this.users = [];
@@ -74,9 +77,9 @@ class App extends Component {
     Requests.getEventById(eventId).then((response) => {
       response.data.starts_at *= 1000;
       this.setState({
-        activeStartTime: response.data.starts_at,
-        eventName: response.data.name,
-        participants: response.data.users,
+        infoActiveStartTime: response.data.starts_at,
+        infoEventName: response.data.name,
+        infoParticipants: response.data.users,
         isInfoDialogOpen: true
       });
     });
@@ -114,9 +117,9 @@ class App extends Component {
                 eventName={ this.state.eventName }
                 participants={ this.state.participants } />
               <InfoDialog
-                activeStartTime={ this.state.activeStartTime }
-                eventName={ this.state.eventName }
-                participants={ this.state.participants }
+                infoActiveStartTime={ this.state.infoActiveStartTime }
+                infoEventName={ this.state.infoEventName }
+                infoParticipants={ this.state.infoParticipants }
                 isInfoDialogOpen={ this.state.isInfoDialogOpen }
                 closeInfoDialogCallback={ this._closeInfoDialog.bind(this) } />
             </Paper>
