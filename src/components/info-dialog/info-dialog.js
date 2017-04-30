@@ -10,13 +10,17 @@ class InfoDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      infoActiveStartTime: '',
-      infoEventName: '',
-      infoParticipants: []
+      isInfoDialogOpen: this.props.isInfoDialogOpen,
+      infoActiveStartTime: this.props.infoActiveStartTime,
+      infoEventName: this.props.infoEventName,
+      infoParticipants: this.props.infoParticipants
     };
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.isInfoDialogOpen !== this.state.isInfoDialogOpen) {
+      this.setState({ isInfoDialogOpen: nextProps.isInfoDialogOpen });
+    }
     if (nextProps.infoActiveStartTime !== this.state.infoActiveStartTime) {
       this.setState({ infoActiveStartTime: nextProps.infoActiveStartTime });
     }
@@ -48,8 +52,8 @@ class InfoDialog extends Component {
         title={`Meeting scheduled on ${moment(this.state.infoActiveStartTime).format('LLLL')}`}
         actions={ actions }
         modal={ false }
-        open={ this.props.isInfoDialogOpen }
-        onRequestClose={ this.props.closeDialogCallback } >
+        open={ this.state.isInfoDialogOpen }
+        onRequestClose={ this.props.closeInfoDialogCallback } >
         <p>{ `Event name: ${this.state.infoEventName}` }</p>
         <p>{ `Participants: ${this.state.infoParticipants.join(', ')}` }</p>
       </Dialog>
